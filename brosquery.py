@@ -40,7 +40,7 @@ for table in tables:
         f = open(location, "r")
         content = f.read()
         f.close()
-        data = json.loads(content)[0]
+        data = json.loads(content)
         checker = __import__(handlername)
         handlerfindings = checker.run(detected_os,data)
         for key,value in handlerfindings.items():
