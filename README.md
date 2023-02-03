@@ -3,7 +3,7 @@ This is very early days, designed to take osquery output from systems, and perfo
 
 ## To recover data for brosquery:
 
-# get osqueryi onto the system in question (I'm not your mother)
+* Get osqueryi onto the system in question (I'm not your mother)
 
 ### Linux
 ```
