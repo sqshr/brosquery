@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import requests,json,urllib,os,ast
 findings={}
+outofdate=[]
 #
 # Using this URL to try to version check all installed software: https://github.com/microsoft/winget-pkgs/issues/1646
 #
@@ -10,7 +11,7 @@ def run(detected_os,data):
     global applist
     applist = {}
     if os.path.isfile("./applist.cache"):
-        print("Using cached applist file")
+        #print("Using cached applist file")
         f = open("./applist.cache","r")
         applist = ast.literal_eval(f.read())
         f.close()
@@ -73,10 +74,10 @@ def run(detected_os,data):
             if len(name) == 2 and nospacename == name[1]:
                 latest = getlatestversion(app['url'])
                 if version != latest:
-                    print(name[1]+" is running at version "+version+". The latest is "+latest)
+                    outofdate.append(name[1]+" is running at version "+version+". The latest is "+latest)
+                    
 
-
-        #findings[key] = "The value for "+key+" was not reported as good by Windows Security Center"
+    findings["outofdate"] = "\n".join(outofdate) 
 
 
     return(findings)
