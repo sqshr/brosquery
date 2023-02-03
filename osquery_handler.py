@@ -23,8 +23,16 @@ def getos():
         return("Windows")
 
 detected_os = getos()
+print(""" _                                               
+| |__  _ __ ___  ___  __ _ _   _  ___ _ __ _   _ 
+| '_ \| '__/ _ \/ __|/ _` | | | |/ _ \ '__| | | |
+| |_) | | | (_) \__ \ (_| | |_| |  __/ |  | |_| |
+|_.__/|_|  \___/|___/\__, |\__,_|\___|_|   \__, |
+  osquery build reviews |_|   by sqshr     |___/ """)
 print("[+] OS Detected as "+detected_os)
 
+findings = {}
+unhandledtables = []
 for table in tables:
     location = os.path.join(args.input, table)
     handlername = table.strip().removesuffix(".json")
@@ -33,12 +41,17 @@ for table in tables:
         content = f.read()
         f.close()
         data = json.loads(content)[0]
-        print("[+] Parsing "+handlername)
-        #imported = getattr(__import__(handlername, fromlist=["checks"]), "checks")
         checker = __import__(handlername)
-        #checker.__dict__.update(data)
-        checker.run(detected_os,data)
+        handlerfindings = checker.run(detected_os,data)
+        for key,value in handlerfindings.items():
+            findings[handlername+"-"+key] = value
 
     else:
-        print("[-] No handler found for "+handlername)
+        unhandledtables.append(handlername)
 
+
+print("The following issues have been identified :")
+for key, value in findings.items():
+    print(key+"   -   "+value)
+print("\n\n\n\n")
+print("The following tables have not been handled, and should be manually reviewed: "+", ".join(unhandledtables))
