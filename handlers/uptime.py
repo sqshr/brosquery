@@ -1,4 +1,5 @@
 #!/usr/bin/python
+delay=False
 findings={}
 
 def run(detected_os,data):
