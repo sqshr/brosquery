@@ -7,7 +7,6 @@ parser.add_argument('--ignore', help='Tables to ignore', nargs='+')
 args = parser.parse_args()
 
 ignored = args.ignore
-print(ignored)
 handlerdir = "./handlers/"
 handlers = os.listdir(handlerdir)
 sys.path.append(os.path.abspath(handlerdir))
@@ -75,3 +74,4 @@ for key, value in findings.items():
     print(key+"   -   "+value)
 print("\n\n\n\n")
 print("The following tables have not been handled, and should be manually reviewed: "+", ".join(unhandledtables))
+print(shared_data.ipaddressdict)

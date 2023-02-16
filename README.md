@@ -13,3 +13,16 @@ This is very early days, designed to take osquery output from systems, and perfo
 ```
 foreach($line in .\osqueryi.exe .tables) { $ttable = $line.split("=> "); if( -not ( $ttable -match 'ec2_.*' ) ){ .\osqueryi --json ".all $ttable[5]" > C:\BR\$ttable.json } }
 ```
+
+## What Can It Do?
+At present brosquery can:
+
+* identify users' group memberships
+* WONKY- identify out of date software
+* Identify unquoted service paths
+* Report on Windows security center/product status
+* Flag high system uptimes
+* List the listening processes on a system, with their command
+* Identify potential "lateral movement" by looking for open sockets in local subnets
+
+All of the above needs testing and refinement- I have only tested against Windows output at present.
