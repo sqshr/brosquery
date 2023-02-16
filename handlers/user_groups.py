@@ -17,7 +17,7 @@ def run(detected_os,data):
                group_memberships[gid]=[]
             group_memberships[gid].append(uid)
     
-    print("[+] Group Memberships")
+    shared_data.report['Group Memberships'] = []
     for gid in group_memberships.keys():
         groupname = shared_data.groupdict[gid]
         userlist = group_memberships[gid]
@@ -26,7 +26,7 @@ def run(detected_os,data):
             username = shared_data.userdict[uid]
             usernames.append(username)
 
-        print(groupname+": "+', '.join(usernames))
+        shared_data.report['Group Memberships'].append(groupname+": "+', '.join(usernames))
 
 
             

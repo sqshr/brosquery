@@ -8,7 +8,10 @@ def run(detected_os,data):
             global drive_letter
             drive_letter = drive['drive_letter']
             if drive['encryption_method'] == "None":
-                findings["drive_unencrypted"] = "Drive "+drive_letter+" is not encrypted"
+                issue_title = "Unencrypted Drive"
+                if issue_title not in findings.keys():
+                    findings[issue_title] = []
+                findings[issue_title].append(drive_letter)
 
 
     return(findings)

@@ -11,7 +11,9 @@ def run(detected_os,data):
             splitpath = os.path.splitext(path)
             checkpath = splitpath[0]
             if " " in checkpath and not checkpath.startswith('\"'):
-                findings[display_name] = "The service path for "+display_name+" is unquoted."
+                if "Unquoted Service Path" not in findings.keys():
+                    findings["Unquoted Service Path"]=[]
+                findings["Unquoted Service Path"].append(display_name)
 
 
     return(findings)

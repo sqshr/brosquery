@@ -36,7 +36,7 @@ print("[+] OS Detected as "+detected_os)
 
 
 findings = {}
-unhandledtables = []
+shared_data.report['Unhandled Tables'] = []
 delayed_handlers = {}
 for table in tables:
     location = os.path.join(args.input, table)
@@ -53,10 +53,10 @@ for table in tables:
             handlerfindings = checker.run(detected_os,data)
             if handlerfindings:
                 for key,value in handlerfindings.items():
-                    findings[handlername+"-"+key] = value
+                    findings[handlername] = {key:value}
 
     else:
-        unhandledtables.append(handlername)
+        shared_data.report['Unhandled Tables'].append(handlername)
 
 for key in delayed_handlers.keys():
     handlername = key
@@ -65,13 +65,13 @@ for key in delayed_handlers.keys():
     handlerfindings = checker.run(detected_os,data)
     if handlerfindings:
         for key,value in handlerfindings.items():
-            findings[handlername+"-"+key] = value
+            findings[handlername] = {key:value}
 
 
-
-print("The following issues have been identified :")
+print("The following issues have been identified: ")
 for key, value in findings.items():
-    print(key+"   -   "+value)
-print("\n\n\n\n")
-print("The following tables have not been handled, and should be manually reviewed: "+", ".join(unhandledtables))
-print(shared_data.ipaddressdict)
+    print("[!] "+key+": "+str(value))
+
+print("The following interesting items have been reported: ")
+for key in shared_data.report.keys():
+    print("[+] "+str(len(shared_data.report[key]))+" instances of "+key)

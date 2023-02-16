@@ -9,9 +9,13 @@ def run(detected_os,data):
             signatures_up_to_date = product['signatures_up_to_date']
             state = product['state']
             if signatures_up_to_date != "1":
-                findings[name+"-sigs"] = "The signatures for "+name+" are not up to date."
+                if "Signatures Out of Date" not in findings.keys():
+                    findings["Signatures Out of Date"] = []
+                findings["Signatures Out of Date"].append(name)
             if state != "On":
-                findings[name+"-state"] = name+" is disabled."
+                if "Feature Disabled" not in findings.keys():
+                    findings["Feature Disabled"] = []
+                findings["Feature Disabled"].append(name)
 
 
     return(findings)

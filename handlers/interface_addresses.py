@@ -6,7 +6,6 @@ ipaddressdict={}
 def run(detected_os,data):
     if "windows" in detected_os.lower():
         for interface in data:
-            print(interface)
             name = interface['friendly_name']
             address = interface['address']
             mask = interface['mask']

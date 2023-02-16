@@ -24,5 +24,6 @@ At present brosquery can:
 * Flag high system uptimes
 * List the listening processes on a system, with their command
 * Identify potential "lateral movement" by looking for open sockets in local subnets
+* Checks the DNS cache for known malware domains (pulled form github)
 
 All of the above needs testing and refinement- I have only tested against Windows output at present.
